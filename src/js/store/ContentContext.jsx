@@ -4,6 +4,11 @@ export const Context = createContext(null);
 
 export const AppContext = ({ children }) => {
     const [store, setStore] = useState({});
+    const [favorites, setFavorites] = useState([]);
+    const [readLater, setReadLater] = useState([]);
+
+    //img
+    //https://starwars-visualguide.com/assets/img/characters/10.jpg
 
     const getStore = () => {
         fetch('https://playground.4geeks.com/contact/agendas/fgamester/contacts')
@@ -26,32 +31,6 @@ export const AppContext = ({ children }) => {
                 headers: {
                     "Content-Type": "application/json"
                 }
-            })
-                .then(() => {
-                    getStore();
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-        updateContact: (item, id) => {
-            fetch('https://playground.4geeks.com/contact/agendas/fgamester/contacts/' + id, {
-                method: "PUT",
-                body: JSON.stringify(item),
-                headers: {
-                    "Content-Type": "application/json"
-                }
-            })
-                .then(() => {
-                    getStore();
-                })
-                .catch(error => {
-                    console.log(error)
-                })
-        },
-        deleteContact: id => {
-            fetch('https://playground.4geeks.com/contact/agendas/fgamester/contacts/' + id, {
-                method: 'DELETE'
             })
                 .then(() => {
                     getStore();
