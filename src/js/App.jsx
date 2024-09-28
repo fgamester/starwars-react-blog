@@ -1,17 +1,22 @@
+import React from "react";
 import { useContext } from "react";
 import { Context } from "./store/ContentContext.jsx";
+import { BrowserRouter, Route, Routes, } from "react-router-dom";
+import Home from "./views/home.jsx";
 
 
 function App() {
   const context = useContext(Context);
 
   if (context.loading) {
-    return <div>Loading...</div>; // Muestra un mensaje de carga mientras se cargan los elementos
+    return <div>Loading...</div>;
   }
   return (
-    <div>
-      <p>All items have finished loading</p>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<Home />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
