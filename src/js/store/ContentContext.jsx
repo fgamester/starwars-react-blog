@@ -4,38 +4,82 @@ export const Context = createContext(null);
 
 export const AppContext = ({ children }) => {
     const [store, setStore] = useState({});
-    const [people, setPeople] = useState({}); //fetch completado
-    const [planetList, setPlanetList] = useState({}); //fetch completado
     const [favorites, setFavorites] = useState([]);
     const [readLater, setReadLater] = useState([]);
-
+    const [loading, setLoading] = useState(true);
     //img
     //https://starwars-visualguide.com/assets/img/characters/10.jpg
-
-    async function getPlanets() {
+    async function settingStore() {
+        //get films
         try {
-            const resp = await fetch('https://www.swapi.tech/api/planets');
+            const resp = await fetch('https://www.swapi.tech/api/films/');
             const jsonResp = await resp.json();
-            const planetList = await jsonResp.results
-            for (let i in planetList) {
-                planetList[i].imgUrl = `https://starwars-visualguide.com/assets/img/planets/${planetList[i].uid}.jpg`
-            }
-            planetList[0].imgUrl = 'https://static.wikia.nocookie.net/esstarwars/images/b/b0/Tatooine_TPM.png/revision/latest?cb=20131214162357'
-            setPlanetList(planetList)
+            const films = await jsonResp.result;
+            setStore(prevStore => ({ ...prevStore, films }))
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
         }
-    };
-
-    async function getPeople() {
+        //get people
         try {
-            const resp = await fetch('https://www.swapi.tech/api/people');
+            const resp = await fetch('https://www.swapi.tech/api/people/');
             const jsonResp = await resp.json();
-            const peopleList = await jsonResp.results;
-            for (let i in peopleList) {
-                peopleList[i].imgUrl = `https://starwars-visualguide.com/assets/img/characters/${peopleList[i].uid}.jpg`
+            const people = await jsonResp.results;
+            for (let i in people) {
+                people[i].imgUrl = `https://starwars-visualguide.com/assets/img/characters/${people[i].uid}.jpg`
             }
-            setPeople(peopleList)
+            setStore(prevStore => ({ ...prevStore, people }))
+        } catch (error) {
+            console.error("The requested URL didn't provide us with the expected information", error);
+        }
+        //get planets
+        try {
+            const resp = await fetch('https://www.swapi.tech/api/planets/');
+            const jsonResp = await resp.json();
+            const planets = await jsonResp.results
+            for (let i in planets) {
+                planets[i].imgUrl = `https://starwars-visualguide.com/assets/img/planets/${planets[i].uid}.jpg`
+            }
+            planets[0].imgUrl = 'https://static.wikia.nocookie.net/esstarwars/images/b/b0/Tatooine_TPM.png/revision/latest?cb=20131214162357'
+            setStore(prevStore => ({ ...prevStore, planets }))
+        } catch (error) {
+            console.error("The requested URL didn't provide us with the expected information", error);
+        }
+        //get species
+        try {
+            const resp = await fetch('https://www.swapi.tech/api/species/');
+            const jsonResp = await resp.json();
+            const species = await jsonResp.results
+            for (let i in species) {
+                species[i].imgUrl = `https://starwars-visualguide.com/assets/img/species/${species[i].uid}.jpg`
+            }
+            setStore(prevStore => ({ ...prevStore, species }))
+        } catch (error) {
+            console.error("The requested URL didn't provide us with the expected information", error);
+        }
+        //get starships
+        try {
+            const resp = await fetch('https://www.swapi.tech/api/starships/');
+            const jsonResp = await resp.json();
+            const starships = await jsonResp.results
+            for (let i in starships) {
+                starships[i].imgUrl = `https://starwars-visualguide.com/assets/img/starships/${starships[i].uid}.jpg`
+            }
+            //pendientes imgUrl 0,1,9
+            setStore(prevStore => ({ ...prevStore, starships }))
+        } catch (error) {
+            console.error("The requested URL didn't provide us with the expected information", error);
+        }
+        //get vehicles
+        try {
+            const resp = await fetch('https://www.swapi.tech/api/vehicles/');
+            const jsonResp = await resp.json();
+            const vehicles = await jsonResp.results
+            for (let i in vehicles) {
+                vehicles[i].imgUrl = `https://starwars-visualguide.com/assets/img/vehicles/${vehicles[i].uid}.jpg`
+            }
+            //pendientes imgUrl 0,1,9
+            setStore(prevStore => ({ ...prevStore, vehicles }))
+            setLoading(false);
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
         }
@@ -43,18 +87,19 @@ export const AppContext = ({ children }) => {
 
     const [actions] = useState({
         addFavorite: item => {
-            const newList = [...favorites, item];
-            setFavorites(newList);
+            setFavorites(prevList => [...prevList, item]);
+        },
+        addReadLater: item => {
+            setReadLater(prevList => [...prevList, item]);
         },
     });
 
     useEffect(() => {
-        getPlanets();
-        getPeople();
+        settingStore();
     }, []);
 
     return (
-        <Context.Provider value={{ store, actions, planetList }}>
+        <Context.Provider value={{ store, actions, favorites, readLater, loading }}>
             {children}
         </Context.Provider>
     );
