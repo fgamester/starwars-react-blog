@@ -2,8 +2,8 @@ import React from "react";
 
 const Home = () => {
     return (
-        <div>
-            All items have been loaded correctly
+        <div className="text-light">
+            'Home' in working
         </div>
     );
 }

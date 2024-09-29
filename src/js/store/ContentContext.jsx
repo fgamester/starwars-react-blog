@@ -7,8 +7,7 @@ export const AppContext = ({ children }) => {
     const [favorites, setFavorites] = useState([]);
     const [readLater, setReadLater] = useState([]);
     const [loading, setLoading] = useState(true);
-    //img
-    //https://starwars-visualguide.com/assets/img/characters/10.jpg
+
     async function settingStore() {
         //get films
         try {
@@ -19,15 +18,15 @@ export const AppContext = ({ children }) => {
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
         }
-        //get people
+        //get characters
         try {
             const resp = await fetch('https://www.swapi.tech/api/people/');
             const jsonResp = await resp.json();
-            const people = await jsonResp.results;
-            for (let i in people) {
-                people[i].imgUrl = `https://starwars-visualguide.com/assets/img/characters/${people[i].uid}.jpg`
+            const characters = await jsonResp.results;
+            for (let i in characters) {
+                characters[i].imgUrl = `https://starwars-visualguide.com/assets/img/characters/${characters[i].uid}.jpg`
             }
-            setStore(prevStore => ({ ...prevStore, people }))
+            setStore(prevStore => ({ ...prevStore, characters }))
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
         }
@@ -77,7 +76,6 @@ export const AppContext = ({ children }) => {
             for (let i in vehicles) {
                 vehicles[i].imgUrl = `https://starwars-visualguide.com/assets/img/vehicles/${vehicles[i].uid}.jpg`
             }
-            //pendientes imgUrl 0,1,9
             setStore(prevStore => ({ ...prevStore, vehicles }))
             setLoading(false);
         } catch (error) {
@@ -86,12 +84,22 @@ export const AppContext = ({ children }) => {
     };
 
     const [actions] = useState({
-        addFavorite: item => {
-            setFavorites(prevList => [...prevList, item]);
+        addFavorite: (toAdd) => {
+            setFavorites(prevList => ([...prevList, toAdd]));
         },
-        addReadLater: item => {
-            setReadLater(prevList => [...prevList, item]);
+        removeFavorite: (toDelete) => {
+            setFavorites(prevList => (
+                prevList.filter(item => item !== toDelete)
+            ));
         },
+        addReadLater: (toAdd) => {
+            setReadLater(prevList => ([...prevList, toAdd]));
+        },
+        removeReadLater: (toDelete) => {
+            setReadLater(prevList => (
+                prevList.filter(item => item !== toDelete)
+            ));
+        }
     });
 
     useEffect(() => {
