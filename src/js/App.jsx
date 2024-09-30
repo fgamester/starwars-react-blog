@@ -20,7 +20,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/content" element={<Categories />} />
-        <Route path="/content/:content-cat" element={<Characters />} />
+        <Route path="/content/:content_cat" element={<Characters />} />
       </Routes>
     </BrowserRouter>
   );

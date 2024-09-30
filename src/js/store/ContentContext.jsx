@@ -14,6 +14,10 @@ export const AppContext = ({ children }) => {
             const resp = await fetch('https://www.swapi.tech/api/films/');
             const jsonResp = await resp.json();
             const films = await jsonResp.result;
+            //https://starwars-visualguide.com/assets/img/films/4.jpg
+            for (let i in films){
+                films[i].imgUrl = `https://starwars-visualguide.com/assets/img/films/${films[i].uid}.jpg`
+            }
             setStore(prevStore => ({ ...prevStore, films }))
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
@@ -38,7 +42,7 @@ export const AppContext = ({ children }) => {
             for (let i in planets) {
                 planets[i].imgUrl = `https://starwars-visualguide.com/assets/img/planets/${planets[i].uid}.jpg`
             }
-            planets[0].imgUrl = 'https://static.wikia.nocookie.net/esstarwars/images/b/b0/Tatooine_TPM.png/revision/latest?cb=20131214162357'
+            planets[0].imgUrl = 'http://oyster.ignimgs.com/mediawiki/apis.ign.com/star-wars-episode-7/4/4b/Tatooine-3.jpg'
             setStore(prevStore => ({ ...prevStore, planets }))
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
