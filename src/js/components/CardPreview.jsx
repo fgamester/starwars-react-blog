@@ -1,7 +1,9 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/ContentContext";
+import { FaRegHeart, FaHeart } from "react-icons/fa";
 
-const CharacterPreviewCard = ({ character }) => {
+
+const CardPreview = ({ character }) => {
     const context = useContext(Context);
     const [favorite, setFavorite] = useState(false);
 
@@ -12,14 +14,8 @@ const CharacterPreviewCard = ({ character }) => {
 
     const getFavState = () => {
         const isFavorite = context.favorites.some(item => item === character);
-        setFavorite(() => isFavorite);
+        setFavorite(isFavorite);
     }
-
-    const heartIcon = favorite ? (
-        <i className="fa-solid fa-heart" />
-    ) : (
-        <i className="fa-regular fa-heart" />
-    );
 
     useEffect(() => {
         getFavState();
@@ -33,7 +29,11 @@ const CharacterPreviewCard = ({ character }) => {
                     <h5 className="card-title">{character.name}</h5>
                     <p className="card-text">Character resume...</p>
                     <button className="btn btn-primary" onClick={() => favoriteToggle()}>
-                        {favorite ? (<i className="fa-solid fa-heart" />) : (<i className="fa-regular fa-heart" />)}
+                        {!favorite ? (
+                            <FaRegHeart/>
+                        ) : (
+                            <FaHeart/>
+                        )}
                     </button>
                     <button className="btn btn-primary">Read Later</button>
                 </div>
@@ -42,4 +42,4 @@ const CharacterPreviewCard = ({ character }) => {
     );
 }
 
-export default CharacterPreviewCard;
+export default CardPreview;

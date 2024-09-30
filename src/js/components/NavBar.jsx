@@ -1,16 +1,13 @@
-import React, { useContext } from "react";
+import React from "react";
 import { Link } from "react-router-dom";
-import { Context } from "../store/ContentContext";
 
 const NavBar = () => {
-    const context = useContext(Context);
-
     return (
-        <nav className="navbar navbar-expand-sm bg-dark position-fixed-top container-fluid">
+        <nav className="navbar navbar-expand-sm bg-dark fixed-top container-fluid">
             <div className="container-fluid">
                 <Link className="navbar-brand text-light" to={'/'}>Star Wars</Link>
                 <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-                    <span className="navbar-toggler-icon text-light"></span>
+                    <i className="fa-solid fa-bars text-light" ></i>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
                     <ul className="navbar-nav w-100">
@@ -24,7 +21,7 @@ const NavBar = () => {
                     <div className="btn-group">
                         <Link className="btn btn-secondary" to={'/favorites'}>Favorites</Link>
                         <button className="btn btn-secondary dropdown-toggle dropdown-toggle-split text-light" data-bs-toggle="dropdown" aria-expanded="false">
-                            <span className="visually-hidden">hiddenButton</span>
+                            <i className="visually-hidden fa-solid fa-bars text-light" />
                         </button>
                         <ul className="dropdown-menu dropdown-menu-end">
                             <li><Link className="dropdown-item">item</Link></li>

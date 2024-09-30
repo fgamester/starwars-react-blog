@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Context } from "../store/ContentContext";
-import CharacterPreviewCard from "../components/CharacterCardPreview";
+import CardPreview from "../components/CardPreview";
 
 const Characters = () => {
     const context = useContext(Context);
@@ -9,7 +9,7 @@ const Characters = () => {
         <div className="container-fluid">
             <div className="row d-flex justify-content-evenly">
                 {context.store.characters.map((item, index) => (
-                    <CharacterPreviewCard character={item} key={index} />
+                    <CardPreview character={item} key={index} />
                 ))
                 }
             </div>
