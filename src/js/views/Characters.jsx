@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import { Context } from "../store/ContentContext";
 import CardPreview from "../components/CardPreview";
+import { useParams } from "react-router-dom";
 
 const Characters = () => {
     const context = useContext(Context);

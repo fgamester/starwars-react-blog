@@ -20,12 +20,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/content" element={<Categories />} />
-        <Route path="/content/films" element={'films in working'} />
-        <Route path="/content/characters" element={<Characters />} />
-        <Route path="/content/planets" element={'planets in working'} />
-        <Route path="/content/species" element={'species in working'} />
-        <Route path="/content/starships" element={'starships in working'} />
-        <Route path="/content/vehicles" element={'vehicles in working'} />
+        <Route path="/content/:content-cat" element={<Characters />} />
       </Routes>
     </BrowserRouter>
   );
