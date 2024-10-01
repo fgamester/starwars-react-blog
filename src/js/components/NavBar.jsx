@@ -32,7 +32,13 @@ const NavBar = () => {
                             <i className="visually-hidden fa-solid fa-bars text-light" />
                         </button>
                         <ul className="dropdown-menu dropdown-menu-end">
-                            {context.favorites.map((item, i) => <NavbarFavorite item={item} key={i} />)}
+                            {context.favorites.length !== 0 ? (
+                                context.favorites.map((item, i) => <NavbarFavorite item={item} key={i} />)
+                            ) : (
+                                <li className="dropdown-item d-flex align-items-center justify-content-between">
+                                    <h5 className="" >The list is empty, try to add one...</h5>
+                                </li>
+                            )}
                         </ul>
                     </div>
                 </div>
