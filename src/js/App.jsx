@@ -5,7 +5,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import NavBar from "./components/NavBar.jsx";
 import Home from "./views/home.jsx";
 import Categories from "./views/Categories.jsx";
-import Characters from "./views/Characters.jsx";
+import CategorieList from "./views/CategorieList.jsx";
 
 function App() {
   const context = useContext(Context);
@@ -20,7 +20,7 @@ function App() {
         <Route index element={<Home />} />
         <Route path="/home" element={<Home />} />
         <Route path="/content" element={<Categories />} />
-        <Route path="/content/:content_cat" element={<Characters />} />
+        <Route path="/content/:content_cat" element={<CategorieList />} />
       </Routes>
     </BrowserRouter>
   );
