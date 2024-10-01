@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import { Context } from "../store/ContentContext";
 import CardPreview from "../components/CardPreview";
 import { useParams } from "react-router-dom";
@@ -6,10 +6,6 @@ import { useParams } from "react-router-dom";
 const CategorieList = () => {
     const context = useContext(Context);
     const pathParams = useParams();
-
-    useEffect(() => {
-        console.log('test')
-    },[])
 
     return (
         <div className="container-fluid">
