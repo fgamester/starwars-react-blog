@@ -3,7 +3,7 @@ import { Context } from "../store/ContentContext";
 import { FaRegHeart, FaHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 
-const FavoriteCard = ({ item, category }) => {
+const ListCard = ({ item, category }) => {
     const context = useContext(Context);
     const [favorite, setFavorite] = useState(false);
     const [later, setLater] = useState(false);
@@ -21,6 +21,7 @@ const FavoriteCard = ({ item, category }) => {
 
     const favoriteToggle = () => {
         if (favorite) context.actions.removeFavorite(item);
+        else context.actions.addFavorite({ 'category': category, 'item': item, 'path': `/content/${category}/${item.uid}` });
     }
 
     const getFavState = () => {
@@ -79,8 +80,7 @@ const FavoriteCard = ({ item, category }) => {
                                     <FaBookmark className="ms-1" />
                                 ) : (
                                     <FaRegBookmark className="ms-1" />
-                                )
-                                }
+                                )}
                             </button>
                             <p className="card-text">
                                 {displayedItem.resume}
@@ -93,4 +93,4 @@ const FavoriteCard = ({ item, category }) => {
     )
 }
 
-export default FavoriteCard;
+export default ListCard;

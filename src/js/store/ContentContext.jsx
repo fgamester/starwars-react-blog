@@ -106,7 +106,6 @@ export const AppContext = ({ children }) => {
         addReadLater: (toAdd) => {
             setLateCount(prev => {
                 const newItem = { ...toAdd, 'id': prev }
-                console.log(newItem)
                 setReadLater(prevList => ([...prevList, newItem]));
                 return prev + 1;
             });

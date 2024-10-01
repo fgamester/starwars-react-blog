@@ -6,7 +6,7 @@ import NavBar from "./components/NavBar.jsx";
 import Home from "./views/home.jsx";
 import Categories from "./views/Categories.jsx";
 import CategoryList from "./views/CategoryList.jsx";
-import FavoritesList from "./views/FavoritesList.jsx";
+import SavedList from "./views/SavedList.jsx";
 
 function App() {
   const context = useContext(Context);
@@ -22,7 +22,7 @@ function App() {
         <Route path="/home" element={<Home />} />
         <Route path="/content" element={<Categories />} />
         <Route path="/content/:content_cat" element={<CategoryList />} />
-        <Route path="/favorites" element={<FavoritesList />} />
+        <Route path="/:saved_list" element={<SavedList />} />
       </Routes>
     </BrowserRouter>
   );
