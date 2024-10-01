@@ -11,7 +11,7 @@ function App() {
   const context = useContext(Context);
 
   if (context.loading) {
-    return <div className="text-light">Loading...</div>;
+    return <div className="text-light text-center">Loading...</div>;
   }
   return (
     <BrowserRouter>

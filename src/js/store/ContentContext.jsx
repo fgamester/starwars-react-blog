@@ -15,7 +15,7 @@ export const AppContext = ({ children }) => {
             const jsonResp = await resp.json();
             const films = await jsonResp.result;
             //https://starwars-visualguide.com/assets/img/films/4.jpg
-            for (let i in films){
+            for (let i in films) {
                 films[i].imgUrl = `https://starwars-visualguide.com/assets/img/films/${films[i].uid}.jpg`
             }
             setStore(prevStore => ({ ...prevStore, films }))
@@ -93,7 +93,7 @@ export const AppContext = ({ children }) => {
         },
         removeFavorite: (toDelete) => {
             setFavorites(prevList => (
-                prevList.filter(item => item !== toDelete)
+                prevList.filter(item => item['item'] !== toDelete)
             ));
         },
         addReadLater: (toAdd) => {
@@ -101,7 +101,7 @@ export const AppContext = ({ children }) => {
         },
         removeReadLater: (toDelete) => {
             setReadLater(prevList => (
-                prevList.filter(item => item !== toDelete)
+                prevList.filter(item => item['item'] !== toDelete)
             ));
         }
     });

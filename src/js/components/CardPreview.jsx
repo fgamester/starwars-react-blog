@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
+import { Link } from "react-router-dom";
 import { Context } from "../store/ContentContext";
 import { FaRegHeart, FaHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
 
@@ -9,18 +10,23 @@ const CardPreview = ({ item, categorie }) => {
     const [later, setLater] = useState(false);
     const [displayedItem, setDisplayedItem] = useState({});
 
-    const favoriteToggle = () => {
-        if (favorite) context.actions.removeFavorite(item);
-        else context.actions.addFavorite(item);
+    const laterTogle = () => {
+        if (later) context.actions.removeReadLater(item);
+        else context.actions.addReadLater({ 'categorie': categorie, 'item': item, 'path': `/content/${categorie}/${item.uid}` });
     }
 
     const getLaterState = () => {
-        const isFavorite = context.favorites.some(i => i === item);
-        setFavorite(isFavorite);
+        const toReadLater = context.readLater.some(i => i.item === item);
+        setLater(toReadLater);
+    }
+
+    const favoriteToggle = () => {
+        if (favorite) context.actions.removeFavorite(item);
+        else context.actions.addFavorite({ 'categorie': categorie, 'item': item, 'path': `/content/${categorie}/${item.uid}` });
     }
 
     const getFavState = () => {
-        const isFavorite = context.favorites.some(i => i === item);
+        const isFavorite = context.favorites.some(i => i.item === item);
         setFavorite(isFavorite);
     }
 
@@ -59,16 +65,23 @@ const CardPreview = ({ item, categorie }) => {
     }, [])
 
     useEffect(() => {
+        getLaterState();
+    }, [context.readLater])
+
+    useEffect(() => {
         getFavState();
     }, [context.favorites])
 
     return (
-        <div className="col col-12 col-sm-9 col-md-6 col-lg-4 col-xxl-3">
+        <div className="col col-12 col-sm-12 col-md-6 col-lg-4 col-xxl-3">
             <div className="card text-bg-dark mt-4 m-2">
                 <img src={displayedItem.img} className={"card-img-top"} alt={displayedItem.name + " image"} />
                 <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center">
-                        <h5 className="card-title">{displayedItem.name}</h5>
+                        <Link to={`/content/${categorie}/${item.uid}`}
+                            className="card-title link-light link-underline-opacity-0 link-underline-opacity-75-hover fs-5">
+                            {displayedItem.name}
+                        </Link>
                         <button className="btn btn-secondary my-auto" onClick={() => favoriteToggle()}>
                             {!favorite ? (
                                 <FaRegHeart />
@@ -78,7 +91,15 @@ const CardPreview = ({ item, categorie }) => {
                         </button>
                     </div>
                     <p className="card-text">{displayedItem.resume}</p>
-                    <button className="btn btn-primary">Read Later</button>
+                    <button className="btn btn-primary w-100" onClick={() => laterTogle()}>
+                        Read Later
+                        {later ? (
+                            <FaBookmark className="ms-1" />
+                        ) : (
+                            <FaRegBookmark className="ms-1" />
+                        )
+                        }
+                    </button>
                 </div>
             </div>
         </div>
