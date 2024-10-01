@@ -7,6 +7,9 @@ export const AppContext = ({ children }) => {
     const [favorites, setFavorites] = useState([]);
     const [readLater, setReadLater] = useState([]);
     const [loading, setLoading] = useState(true);
+    // Agregar favCount y lateCount para agregar ids a las listas, actualizar en componentes que utilicen la función
+    const [favCount, setFavCount] = useState(0);
+    const [lateCount, setLateCount] = useState(0);
 
     async function settingStore() {
         //get films
@@ -89,7 +92,11 @@ export const AppContext = ({ children }) => {
 
     const [actions] = useState({
         addFavorite: (toAdd) => {
-            setFavorites(prevList => ([...prevList, toAdd]));
+            setFavCount(prev => {
+                const newItem = { ...toAdd, 'id': prev }
+                setFavorites(prevList => ([...prevList, newItem]));
+                return prev + 1;
+            });
         },
         removeFavorite: (toDelete) => {
             setFavorites(prevList => (
@@ -97,7 +104,12 @@ export const AppContext = ({ children }) => {
             ));
         },
         addReadLater: (toAdd) => {
-            setReadLater(prevList => ([...prevList, toAdd]));
+            setLateCount(prev => {
+                const newItem = { ...toAdd, 'id': prev }
+                console.log(newItem)
+                setReadLater(prevList => ([...prevList, newItem]));
+                return prev + 1;
+            });
         },
         removeReadLater: (toDelete) => {
             setReadLater(prevList => (

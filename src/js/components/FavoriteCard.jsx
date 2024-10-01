@@ -32,11 +32,11 @@ const FavoriteCard = ({ item, category }) => {
         let newItem = {};
         switch (category) {
             case ('films'):
-                newItem = { name: item.properties.title, img: item.imgUrl, resume: item.description };
+                newItem = { 'name': item.properties.title, 'img': item.imgUrl, 'resume': item.description };
                 setDisplayedItem(newItem);
                 break;
             default:
-                newItem = { name: item.name, img: item.imgUrl, resume: 'Card resume...' };
+                newItem = { 'name': item.name, 'img': item.imgUrl, 'resume': 'Card resume...' };
                 setDisplayedItem(newItem);
                 break;
         }
@@ -84,7 +84,7 @@ const FavoriteCard = ({ item, category }) => {
                             </button>
                             <p className="card-text">
                                 {displayedItem.resume}
-                                </p>
+                            </p>
                         </div>
                     </div>
                 </div>
