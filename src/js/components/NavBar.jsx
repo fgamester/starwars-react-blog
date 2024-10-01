@@ -1,12 +1,19 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Link } from "react-router-dom";
+import { Context } from "../store/ContentContext";
+import NavbarFavorite from "./NavbarFavorite";
+
 
 const NavBar = () => {
+    const context = useContext(Context);
+
     return (
         <nav className="navbar navbar-expand-sm bg-dark fixed-top container-fluid">
             <div className="container-fluid mx-2">
                 <Link className="navbar-brand text-light" to={'/'}>Star Wars</Link>
-                <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <button className="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false"
+                    aria-label="Toggle navigation">
                     <i className="fa-solid fa-bars text-light" ></i>
                 </button>
                 <div className="collapse navbar-collapse" id="navbarNavDropdown">
@@ -20,12 +27,12 @@ const NavBar = () => {
                     </ul>
                     <div className="btn-group">
                         <Link className="btn btn-secondary" to={'/favorites'}>Favorites</Link>
-                        <button className="btn btn-secondary dropdown-toggle dropdown-toggle-split text-light" data-bs-toggle="dropdown" aria-expanded="false">
+                        <button className="btn btn-secondary dropdown-toggle dropdown-toggle-split text-light"
+                            data-bs-toggle="dropdown" aria-expanded="false">
                             <i className="visually-hidden fa-solid fa-bars text-light" />
                         </button>
                         <ul className="dropdown-menu dropdown-menu-end">
-                            <li><Link className="dropdown-item">item</Link></li>
-                            {/* favoritos aqui */}
+                            {context.favorites.map((item, i) => <NavbarFavorite item={item} key={i} />)}
                         </ul>
                     </div>
                 </div>
