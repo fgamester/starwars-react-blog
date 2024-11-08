@@ -11,7 +11,7 @@ const CategoryList = () => {
         <div className="container-fluid">
             <div className="row d-flex justify-content-evenly align-items-center">
                 {context?.store[pathParams.content_cat].map((item, index) => (
-                    <CardPreview item={item} category={pathParams.content_cat} key={index} />
+                    <CardPreview item={item} category={pathParams.content_cat} id={index + 1} key={index} />
                 ))
                 }
             </div>

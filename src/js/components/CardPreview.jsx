@@ -4,7 +4,7 @@ import { Context } from "../store/ContentContext";
 import { FaRegHeart, FaHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
 
 
-const CardPreview = ({ item, category }) => {
+const CardPreview = ({ item, category, id }) => {
     const context = useContext(Context);
     const [favorite, setFavorite] = useState(false);
     const [later, setLater] = useState(false);
@@ -12,7 +12,7 @@ const CardPreview = ({ item, category }) => {
 
     const laterTogle = () => {
         if (later) context.actions.removeReadLater(item);
-        else context.actions.addReadLater({ 'category': category, 'item': item, 'path': `/content/${category}/${item.uid}` });
+        else context.actions.addReadLater({ 'category': category, 'item': item, 'path': `/content/${category}/${id}` });
     }
 
     const getLaterState = () => {
@@ -22,7 +22,7 @@ const CardPreview = ({ item, category }) => {
 
     const favoriteToggle = () => {
         if (favorite) context.actions.removeFavorite(item);
-        else context.actions.addFavorite({ 'category': category, 'item': item, 'path': `/content/${category}/${item.uid}` });
+        else context.actions.addFavorite({ 'category': category, 'item': item, 'path': `/content/${category}/${id}` });
     }
 
     const getFavState = () => {
@@ -62,7 +62,7 @@ const CardPreview = ({ item, category }) => {
                 <img src={displayedItem.img} className="card-img-top" alt={displayedItem.name + " image"} />
                 <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center">
-                        <Link to={`/content/${category}/${item.uid}`}
+                        <Link to={`/content/${category}/${id}`}
                             className="card-title link-light link-underline-opacity-0 link-underline-opacity-75-hover fs-5">
                             {displayedItem.name}
                         </Link>

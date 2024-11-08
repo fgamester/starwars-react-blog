@@ -4,6 +4,9 @@ import { Context } from "../store/ContentContext";
 import CharacterCard from "../components/content-cards/CharacterCard";
 import SpecieCard from "../components/content-cards/SpecieCard";
 import FilmCard from "../components/content-cards/FilmCard";
+import PlanetCard from "../components/content-cards/PlanetCard";
+import StarshipCard from "../components/content-cards/StarshipCard";
+import VehicleCard from "../components/content-cards/VehicleCard";
 
 const ContentView = () => {
     const { actions, loading } = useContext(Context);
@@ -23,6 +26,12 @@ const ContentView = () => {
                 return <SpecieCard data={displayedItem} />;
             case ('films'):
                 return <FilmCard data={displayedItem} />;
+            case ('planets'):
+                return <PlanetCard data={displayedItem} />;
+            case ('starships'):
+                return <StarshipCard data={displayedItem} />;
+            case ('vehicles'):
+                return <VehicleCard data={displayedItem} />;
             default:
                 return <h1 className="text-center">The content you're trying to display isn't available. Are you sure This Is The Way?</h1>
         }

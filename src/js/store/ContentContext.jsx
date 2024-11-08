@@ -7,7 +7,6 @@ export const AppContext = ({ children }) => {
     const [favorites, setFavorites] = useState([]);
     const [readLater, setReadLater] = useState([]);
     const [loading, setLoading] = useState(true);
-    // Agregar favCount y lateCount para agregar ids a las listas, actualizar en componentes que utilicen la función
     const [favCount, setFavCount] = useState(0);
     const [lateCount, setLateCount] = useState(0);
 
@@ -37,7 +36,6 @@ export const AppContext = ({ children }) => {
             for (let i in films) {
                 films[i].imgUrl = `https://starwars-visualguide.com/assets/img/films/${films[i].uid}.jpg`
             }
-            // setStore(prevStore => ({ ...prevStore, films }))
             newStore = { ...newStore, films }
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
@@ -50,7 +48,6 @@ export const AppContext = ({ children }) => {
             for (let i in characters) {
                 characters[i].imgUrl = `https://starwars-visualguide.com/assets/img/characters/${characters[i].uid}.jpg`
             }
-            // setStore(prevStore => ({ ...prevStore, characters }))
             newStore = { ...newStore, characters }
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
@@ -64,7 +61,6 @@ export const AppContext = ({ children }) => {
                 planets[i].imgUrl = `https://starwars-visualguide.com/assets/img/planets/${planets[i].uid}.jpg`
             }
             planets[0].imgUrl = 'http://oyster.ignimgs.com/mediawiki/apis.ign.com/star-wars-episode-7/4/4b/Tatooine-3.jpg'
-            // setStore(prevStore => ({ ...prevStore, planets }))
             newStore = { ...newStore, planets }
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
@@ -77,7 +73,6 @@ export const AppContext = ({ children }) => {
             for (let i in species) {
                 species[i].imgUrl = `https://starwars-visualguide.com/assets/img/species/${species[i].uid}.jpg`
             }
-            // setStore(prevStore => ({ ...prevStore, species }))
             newStore = { ...newStore, species }
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
@@ -91,7 +86,6 @@ export const AppContext = ({ children }) => {
                 starships[i].imgUrl = `https://starwars-visualguide.com/assets/img/starships/${starships[i].uid}.jpg`
             }
             //pendientes imgUrl 0,1,9
-            // setStore(prevStore => ({ ...prevStore, starships }))
             newStore = { ...newStore, starships }
         } catch (error) {
             console.error("The requested URL didn't provide us with the expected information", error);
@@ -104,7 +98,6 @@ export const AppContext = ({ children }) => {
             for (let i in vehicles) {
                 vehicles[i].imgUrl = `https://starwars-visualguide.com/assets/img/vehicles/${vehicles[i].uid}.jpg`
             }
-            // setStore(prevStore => ({ ...prevStore, vehicles }))
             newStore = { ...newStore, vehicles }
             setStore(newStore);
             localStorage.setItem('store', JSON.stringify(newStore));
@@ -142,7 +135,6 @@ export const AppContext = ({ children }) => {
         getItem: async (category, id) => {
             let newItem = {};
             try {
-                //arreglar esto
                 const resp = await fetch(getUrl(category, id));
                 console.log(resp)
                 const jsonResp = await resp.json();
@@ -188,6 +180,57 @@ export const AppContext = ({ children }) => {
                             'img': store?.films[id - 1].imgUrl
                         };
                         return newItem;
+                    case ('planets'):
+                        newItem = {
+                            'name': result.properties.name,
+                            'diameter': result.properties.diameter,
+                            'gravity': result.properties.gravity,
+                            'terrain': result.properties.terrain,
+                            'surface_water': result.properties.surface_water,
+                            'climate': result.properties.climate,
+                            'population': result.properties.population,
+                            'rotation_period': result.properties.rotation_period,
+                            'orbital_period': result.properties.orbital_period,
+                            'description': result.description,
+                            'img': store?.planets[id - 1].imgUrl
+                        };
+                        return newItem;
+                    case ('starships'):
+                        newItem = {
+                            'name': result.properties.name,
+                            'model': result.properties.model,
+                            'manufacturer': result.properties.manufacturer,
+                            'cost_in_credits': result.properties.cost_in_credits,
+                            'length': result.properties.length,
+                            'max_atmosphering_speed': result.properties.max_atmosphering_speed,
+                            'crew': result.properties.crew,
+                            'passengers': result.properties.passengers,
+                            'cargo_capacity': result.properties.cargo_capacity,
+                            'consumables': result.properties.consumables,
+                            'hyperdrive_rating': result.properties.hyperdrive_rating,
+                            'MGLT': result.properties.MGLT,
+                            'starship_class': result.properties.starship_class,
+                            'description': result.description,
+                            'img': store?.starships[id - 1].imgUrl
+                        };
+                        return newItem;
+                        case ('vehicles'):
+                            newItem = {
+                                'name': result.properties.name,
+                                'model': result.properties.model,
+                                'manufacturer': result.properties.manufacturer,
+                                'cost_in_credits': result.properties.cost_in_credits,
+                                'length': result.properties.length,
+                                'max_atmosphering_speed': result.properties.max_atmosphering_speed,
+                                'crew': result.properties.crew,
+                                'passengers': result.properties.passengers,
+                                'cargo_capacity': result.properties.cargo_capacity,
+                                'consumables': result.properties.consumables,
+                                'vehicle_class': result.properties.vehicle_class,
+                                'description': result.description,
+                                'img': store?.vehicles[id - 1].imgUrl
+                            };
+                            return newItem;
                 }
             } catch (error) {
                 console.error("The requested URL didn't provide us with the expected information", error);
