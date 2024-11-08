@@ -1,9 +1,10 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/ContentContext";
 import { FaRegHeart, FaHeart, FaRegBookmark, FaBookmark } from "react-icons/fa";
+import { Link } from "react-router-dom";
 
 
-const ListCard = ({ item, category }) => {
+const ListCard = ({ item, category, path }) => {
     const context = useContext(Context);
     const [favorite, setFavorite] = useState(false);
     const [later, setLater] = useState(false);
@@ -45,6 +46,7 @@ const ListCard = ({ item, category }) => {
 
     useEffect(() => {
         categorySwitcher();
+        console.log(path)
     }, [])
 
     useEffect(() => {
@@ -57,7 +59,7 @@ const ListCard = ({ item, category }) => {
 
     return (
         <div className="col-12 col-md-8 col-lg-6 col-xxl-4 d-flex justify-content-center">
-            <div className="card mb-3 col">
+            <div className="card text-bg-dark mb-3 col">
                 <div className="row g-0">
                     <div className="col-md-4 d-flex align-items-center">
                         <img src={displayedItem.img} className="img-fluid rounded-start" alt={`${displayedItem.name} image`} />
@@ -65,7 +67,9 @@ const ListCard = ({ item, category }) => {
                     <div className="col-md-8">
                         <div className="card-body">
                             <div className="d-flex justify-content-between align-items-center mb-1">
-                                <h5 className="card-title">{displayedItem.name}</h5>
+                                <Link to={path}
+                                className="card-title link-light link-underline-opacity-0 link-underline-opacity-75-hover fs-5">
+                                {displayedItem.name}</Link>
                                 <button className="btn btn-secondary my-auto" onClick={() => favoriteToggle()}>
                                     {!favorite ? (
                                         <FaRegHeart />
