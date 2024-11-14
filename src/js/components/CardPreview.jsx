@@ -58,8 +58,10 @@ const CardPreview = ({ item, category, id }) => {
 
     return (
         <div className="col col-12 col-sm-12 col-md-6 col-lg-4 col-xxl-3">
-            <div className="card text-bg-dark mt-4 m-2">
-                <img src={displayedItem.img} className="card-img-top" alt={displayedItem.name + " image"} />
+            <div className="card text-bg-dark h-100">
+                <div className="card-head h-100 d-flex align-items-center">
+                    <img src={displayedItem.img} className="card-img-top" alt={displayedItem.name + " image"} />
+                </div>
                 <div className="card-body">
                     <div className="d-flex justify-content-between align-items-center">
                         <Link to={`/content/${category}/${id}`}

@@ -9,7 +9,7 @@ const CategoryList = () => {
 
     return (
         <div className="container-fluid">
-            <div className="row d-flex justify-content-evenly align-items-center">
+            <div className="row g-3 d-flex justify-content-evenly my-3">
                 {context?.store[pathParams.content_cat].map((item, index) => (
                     <CardPreview item={item} category={pathParams.content_cat} id={index + 1} key={index} />
                 ))
